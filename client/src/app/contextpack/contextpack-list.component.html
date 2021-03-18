@@ -1,0 +1,49 @@
+<div fxLayout="row">
+  <div class="body" fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+
+    <mat-card class="search-card">
+      <mat-card-title color="primary" class="contextpack-list-title">Context Packs</mat-card-title>
+
+      <div fxLayout="row wrap" fxLayoutGap="10px">
+
+        <mat-form-field class="input-field">
+          <mat-label>Name:</mat-label>
+          <input
+            matInput
+            id="contextpack-name-input"
+            placeholder="Filter by context pack name"
+            [(ngModel)]="contextPackName"
+            (input)="getContextPacksFromServer()"
+          />
+        </mat-form-field>
+      </div>
+      </mat-card>
+
+
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="15" *ngIf="serverFilteredContextPacks; else packsError" >
+      <div fxLayout="row wrap" fxLayoutGap="10px" class="packs-cards-container">
+
+          <app-contextpack-card simple=true *ngFor="let contextPack of filteredPacks" class="packs-card" [contextPack]="contextPack" fxFlex="1 1 250px"></app-contextpack-card>
+
+        </div>
+  </div>
+
+
+
+  <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
+  <ng-template #packsError>
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="packs-error">
+      <mat-error>
+        There was a problem loading the Context Packs. Possibly the server is down or perhaps there are network
+        issues.
+      </mat-error>
+      <mat-error>
+        Please wait a bit and try again or start the server.
+      </mat-error>
+    </div>
+  </ng-template>
+
+<button mat-fab class="add-contextPack-fab" matTooltip="Add Context Pack" align="left" matTooltipPosition="bottom" routerLink="/contextpacks/new" data-test="addContextPackButton">
+  <mat-icon class="md-24" aria-label="Add Context Pack">add</mat-icon>
+</button>

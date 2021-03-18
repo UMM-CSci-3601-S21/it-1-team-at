@@ -1,0 +1,19 @@
+<mat-card class="contextpack-card" *ngIf="this.contextPack">
+  <mat-card-actions>
+    <button mat-button data-test="viewWordPacksButton" *ngIf=this.simple [routerLink]="['/contextpacks', this.contextPack._id]">
+    <mat-card-title class="contextpack-card-name">{{ this.contextPack.name }}</mat-card-title>
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRmHaMegkEMC35CmUXa4-vBVoncj8iQAO3xZg&usqp=CAU" width='50' height= '50'>
+  <mat-card-footer>Enabled: {{ this.contextPack.enabled }}</mat-card-footer>
+    </button>
+  </mat-card-actions>
+
+  <mat-card-content *ngIf="!this.simple">
+  <div>
+    <span><h1>WordPacks:</h1></span>
+      <div *ngFor="let wordpacks of contextPack.wordPacks; let index = index">
+       <mat-card class="contextpack-content"><span class="contextpack-card-wordlists"><div style="width: 90%;white-space: pre-line">{{displayWordPacks(this.contextPack.wordPacks[index])}}</div></span></mat-card>
+      </div>
+  </div>
+</mat-card-content>
+</mat-card>
+

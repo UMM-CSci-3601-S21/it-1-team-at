@@ -1,0 +1,32 @@
+mat-card-actions{
+  width:inherit;
+}
+
+button{
+  font-family: 'Amatic SC';
+  width: 100%;
+  font-size: 15px;
+}
+
+mat-card, mat-card-title{
+text-align:left;
+font-size: 25px;
+}
+
+mat-card-footer{
+  margin:10px;
+  text-align: left;
+}
+
+.contextpack-content{
+  font-family: 'Amatic SC';
+  text-align: left;
+  line-height: 60px;
+  margin: 10px;
+  font-size: 30px;
+}
+
+h1{
+  font-family: 'Amatic SC';
+  font-size: 40px;
+}

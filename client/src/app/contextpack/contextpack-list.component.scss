@@ -1,0 +1,35 @@
+.packs-cards-container{
+  position:relative;
+  width: 100%;
+  margin: 20px;
+}
+
+.packs-card{
+  width: 100%;
+  margin: 10px;
+  box-shadow: 10px 5px 5px lightgray;
+}
+
+mat-card-title{
+  font-family: 'Amatic SC';
+  font-size: 30px;
+  margin: 20px;
+}
+
+mat-card{
+  margin:20px;
+  background-color: lightgrey;
+}
+
+button{
+  position:fixed;
+  bottom: 15px;
+  right: 30px;
+
+}
+
+.add-contextPacks-fab {
+  position: fixed;
+  bottom: 15px;
+  right: 30px;
+}

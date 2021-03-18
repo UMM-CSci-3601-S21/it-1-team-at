@@ -1,0 +1,224 @@
+<!-- HTML Courtesy of the Purple Tigers https://github.com/UMM-CSci-3601-S21/it-1-purple-tigers -->
+<div fxLayout="row">
+  <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+<form [formGroup]="addContextPackForm" (ngSubmit)="submitForm()" class="form">
+  <mat-card class="add-contextpack-card">
+    <mat-card-header>
+      <mat-card-title class="add-pack-title"><h1>Create A New Context Pack</h1></mat-card-title>
+    </mat-card-header>
+    <mat-card-content fxLayout="column">
+
+    <mat-form-field>
+      <mat-label>ContextPack Name</mat-label>
+      <input matInput placeholder="Name" formControlName="name"
+            required>
+      <mat-error *ngFor="let validation of addContextPackValidationMessages.wordPacks.name">
+        <mat-error class="error-message" data-test="nameError"
+                   *ngIf="addContextPackForm.get('name').hasError(validation.type) && (addContextPackForm.get('name').dirty || addContextPackForm.get('name').touched)">
+          {{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-radio-group>
+      <mat-radio-button class="context-enabled-box-true" value="true">Enabled</mat-radio-button>
+      <mat-radio-button class="context-enabled-box-false" value="false">Disabled</mat-radio-button>
+    </mat-radio-group>
+
+  <mat-form-field>
+    <mat-label>Icon</mat-label>
+    <input matInput placeholder="Icon" formControlName="icon">
+  </mat-form-field>
+
+	<!-- wordPacks -->
+
+	<div formArrayName="wordPacks">
+		<div *ngFor="let wordPacks of addContextPackForm['controls'].wordPacks['controls']; let ix=index">
+			<div formGroupName="{{ix}}" class="wordPacks">
+        <label>
+          Name:
+          <mat-form-field>
+            <mat-label>Word Pack Name</mat-label>
+            <input matInput placeholder="Name" formControlName="name"
+                  required>
+            <mat-error *ngFor="let validation of addContextPackValidationMessages.wordPacks.name">
+              <mat-error class="error-message" data-test="nameError"
+                        *ngIf="addContextPackForm.get('name').hasError(validation.type) && (addContextPackForm.get('name').dirty || addContextPackForm.get('name').touched)">
+                {{validation.message}}
+              </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </label>
+        <mat-radio-group>
+          <mat-radio-button class="wordpack-enabled-box-true" value="true">Enabled</mat-radio-button>
+          <mat-radio-button class="wordpack-enabled-box-false" value="false">Disabled</mat-radio-button>
+        </mat-radio-group>
+
+				<!-- Nouns -->
+
+          <div formArrayName="nouns" >
+           <h3>Nouns:</h3>
+            <div *ngFor="let nouns of wordPacks['controls'].nouns['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="nouns">
+                <div>
+                </div>
+                <mat-form-field>
+                  <mat-label>Word</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                </mat-form-field>
+
+                <div *ngFor="let forms of nouns['controls'].forms['controls']; let iz=index">
+                  <mat-form-field formArrayName="forms">
+                    <mat-label>Forms:</mat-label>
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'nouns')">
+                    </mat-form-field>
+
+
+                </div>
+                <!--add button-->
+                <div class="add-button">
+                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'nouns')">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+                 <!--end add button-->
+
+              </div>
+            </div>
+            <button class="add-noun-button" type="button" (click)="addPosArray(ix,'nouns')" value="Add Noun">Add Noun</button>
+          </div>
+
+
+				<!-- Nouns End -->
+        <!-- Adjectives -->
+
+          <div formArrayName="adjectives" >
+           <h3>Adjectives:</h3>
+            <div *ngFor="let adj of wordPacks['controls'].adjectives['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="adjectives" >
+
+
+                <mat-form-field>
+                  <mat-label>Word</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                </mat-form-field>
+                <!---Forms -->
+                <div *ngFor="let forms of adj['controls'].forms['controls']; let iz=index">
+                  <mat-form-field formArrayName="forms">
+                    <mat-label>Forms:</mat-label>
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'adjectives')">
+                  </mat-form-field>
+
+                </div>
+
+                <div class="add-button">
+                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'adjectives')">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+
+              </div>
+            </div>
+            <button class="add-adj-button" type="button" (click)="addPosArray(ix,'adjectives')" value="Add Adjective">Add Adjective</button>
+          </div>
+
+
+				<!-- Adjectives End -->
+        <!-- Verbs -->
+
+          <div formArrayName="verbs">
+           <h3>Verbs:</h3>
+            <div *ngFor="let verbs of wordPacks['controls'].verbs['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="verbs" >
+
+
+
+                <mat-form-field>
+                  <mat-label>Word</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                </mat-form-field>
+                <!---Forms -->
+                <div *ngFor="let forms of verbs['controls'].forms['controls']; let iz=index">
+                  <mat-form-field formArrayName="forms">
+                    <mat-label>Forms:</mat-label>
+                    <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'verbs')">
+
+                    </mat-form-field>
+
+                </div>
+                <!--add button-->
+                <div class="add-button">
+                  <button class="add-button" type="button" (click)="addForms(ix, iy, 'verbs')">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                </div>
+                 <!--end add button-->
+
+
+              </div>
+            </div>
+            <button class="add-verb-button" type="button" (click)="addPosArray(ix,'verbs')" value="Add Verb">Add Verb</button>
+          </div>
+
+
+				<!-- Verbs End -->
+        <!-- Misc -->
+          <div formArrayName="misc">
+           <h3>Misc:</h3>
+            <div *ngFor="let misc of wordPacks['controls'].misc['controls']; let iy=index">
+              <div formGroupName="{{iy}}" class="misc" >
+
+
+
+                <mat-form-field>
+                  <mat-label>Word</mat-label>
+                  <input autocomplete="off" matInput placeholder="Word" formControlName="word" >
+                </mat-form-field>
+               <!---Forms -->
+               <div *ngFor="let forms of misc['controls'].forms['controls']; let iz=index">
+                <mat-form-field formArrayName="forms">
+                  <mat-label>Forms:</mat-label>
+                  <input autocomplete="off" matInput placeholder="form" [formControlName]="iz" class="formInput" (click)="setWord(ix, iy,  'misc')">
+
+                  </mat-form-field>
+
+              </div>
+              <!--add button-->
+              <div class="add-button">
+                <button class="add-button" type="button" (click)="addForms(ix, iy, 'misc')">
+                  <mat-icon>add</mat-icon>
+                </button>
+              </div>
+               <!--end add button-->
+
+
+              </div>
+            </div>
+            <button class="add-misc-button" type="button" (click)="addPosArray(ix,'misc')" value="Add Misc"> Add Misc</button>
+          </div>
+
+				<!-- Misc End -->
+
+			</div>
+		</div>
+    <div>
+		<button class="add-wordPack-button" type="button" (click)="addWordPack()" value="Add wordPack">Add wordPack</button>
+    </div>
+  </div>
+
+</mat-card-content>
+</mat-card>
+	<!-- X End -->
+</form>
+<div class="buttons-div">
+  <button type="submit" (click)="submitForm()"
+    mat-button
+    type="button"
+    color="primary"
+    [disabled]="!addContextPackForm.valid"
+    type="submit"
+    data-test="confirmAddPackButton"
+  >
+    ADD CONTEXT PACK
+  </button>
+</div>

@@ -24,14 +24,16 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 
-import { UserListComponent } from './users/user-list.component';
-import { HomeComponent } from './home/home.component';
-import { UserService } from './users/user.service';
 import { HttpClientModule } from '@angular/common/http';
 import { LayoutModule } from '@angular/cdk/layout';
-import { UserCardComponent } from './users/user-card.component';
-import { UserProfileComponent } from './users/user-profile.component';
-import { AddUserComponent } from './users/add-user.component';
+
+import { ContextpackContentComponent } from './contextpack/contextpack-content.component';
+import { ContextpackCardComponent } from './contextpack/contextpack-card.component';
+import { ContextpackService } from './contextpack/contextpack.service';
+import { ContextpackListComponent } from './contextpack/contextpack-list.component';
+import { AddContextpackComponent } from './contextpack/add-contextpack.component';
+
+
 
 const MATERIAL_MODULES: any[] = [
   MatListModule,
@@ -55,11 +57,11 @@ const MATERIAL_MODULES: any[] = [
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
-    UserListComponent,
-    UserCardComponent,
-    UserProfileComponent,
-    AddUserComponent,
+    ContextpackCardComponent,
+    ContextpackContentComponent,
+    ContextpackListComponent,
+    AddContextpackComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -73,7 +75,7 @@ const MATERIAL_MODULES: any[] = [
     LayoutModule,
   ],
   providers: [
-    UserService
+    ContextpackService
   ],
   bootstrap: [AppComponent]
 })
